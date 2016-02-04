@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+
+<!-- Extracted from the Symfony's Framework Bundle //-->
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="event_dispatcher" class="Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="http_kernel" class="Symfony\Component\HttpKernel\HttpKernel">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="controller_resolver" />
+            <argument type="service" id="request_stack" />
+        </service>
+
+        <service id="request_stack" class="Symfony\Component\HttpFoundation\RequestStack" />
+
+        <service id="cache_warmer" class="Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate">
+            <argument type="collection" />
+        </service>
+
+        <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer">
+            <argument type="collection" />
+        </service>
+
+        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
+
+        <service id="config_cache_factory" class="Symfony\Component\Config\ResourceCheckerConfigCacheFactory">
+            <argument type="collection"></argument>
+        </service>
+
+        <service class="Symfony\Component\Config\Resource\SelfCheckingResourceChecker" public="false">
+            <tag name="config_cache.resource_checker" priority="-990" />
+        </service>
+
+        <service id="controller_resolver" class="Bare\Controller\ControllerResolver" public="false">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="logger" on-invalid="ignore" />
+
+            <tag name="monolog.logger" channel="request" />
+        </service>
+
+        <service id="response_listener" class="Symfony\Component\HttpKernel\EventListener\ResponseListener">
+            <argument>%kernel.charset%</argument>
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="debug.debug_handlers_listener" class="Symfony\Component\HttpKernel\EventListener\DebugHandlersListener">
+            <argument /><!-- Exception handler -->
+            <argument type="service" id="logger" on-invalid="null" />
+
+            <tag name="kernel.event_subscriber" />
+            <tag name="monolog.logger" channel="php" />
+        </service>
+
+        <service id="debug.stopwatch" class="Symfony\Component\Stopwatch\Stopwatch" />
+
+        <service id="kernel" synthetic="true" />
+        <service id="service_container" synthetic="true" />
+    </services>
+</container>

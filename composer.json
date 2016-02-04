@@ -1,0 +1,84 @@
+{
+    "name": "taluu/bare-app",
+    "description": "Minimal Symfony bare application",
+    "type": "project",
+    "license": "MIT",
+
+    "authors": [
+        {
+            "name": "Baptiste Clavié",
+            "email": "clavie.b@gmail.com"
+        }
+    ],
+
+    "require": {
+        "php": "^7.0",
+
+        "symfony/yaml": "^3.1",
+        "symfony/config": "^3.1",
+        "symfony/finder": "^3.1",
+        "symfony/console": "^3.1",
+        "symfony/process": "^3.1",
+        "symfony/routing": "^3.1",
+        "symfony/stopwatch": "^3.1",
+        "symfony/filesystem": "^3.1",
+        "symfony/event-dispatcher": "^3.1",
+        "symfony/dependency-injection": "^3.1",
+
+        "symfony/http-kernel": "^3.1",
+        "symfony/http-foundation": "^3.1",
+
+        "sensio/distribution-bundle": "^5.0",
+
+        "symfony/monolog-bundle": "^2.8",
+        "monolog/monolog": "^1.0 || ^2.0"
+    },
+
+    "require-dev": {
+        "symfony/debug": "^3.1",
+        "symfony/var-dumper": "^3.1"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Bare\\": ["src/", "app/"]
+        },
+
+        "files": [
+            "app/AppKernel.php",
+            "app/Application.php"
+        ]
+    },
+
+    "autoload-dev": {
+        "files": [
+            "vendor/symfony/var-dumper/Resources/functions/dump.php"
+        ]
+    },
+
+    "scripts": {
+        "post-install-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache"
+        ],
+
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache"
+        ]
+    },
+
+    "config": {
+        "bin-dir": "bin"
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web"
+    }
+}
