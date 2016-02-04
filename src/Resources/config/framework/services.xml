@@ -16,25 +16,16 @@
             <argument type="service" id="request_stack" />
         </service>
 
+        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
         <service id="request_stack" class="Symfony\Component\HttpFoundation\RequestStack" />
 
-        <service id="cache_warmer" class="Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate">
-            <argument type="collection" />
-        </service>
-
-        <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer">
-            <argument type="collection" />
-        </service>
-
-        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
-
         <service id="config_cache_factory" class="Symfony\Component\Config\ResourceCheckerConfigCacheFactory">
-            <argument type="collection"></argument>
+            <argument type="collection">
+                <argument type="service" id="cache.self_checking" />
+            </argument>
         </service>
 
-        <service class="Symfony\Component\Config\Resource\SelfCheckingResourceChecker" public="false">
-            <tag name="config_cache.resource_checker" priority="-990" />
-        </service>
+        <service id="cache.self_checking" class="Symfony\Component\Config\Resource\SelfCheckingResourceChecker" public="false" />
 
         <service id="controller_resolver" class="Bare\Controller\ControllerResolver" public="false">
             <argument type="service" id="service_container" />
@@ -57,6 +48,10 @@
         </service>
 
         <service id="debug.stopwatch" class="Symfony\Component\Stopwatch\Stopwatch" />
+
+        <service id="file_locator" class="Symfony\Component\HttpKernel\Config\FileLocator">
+            <argument type="service" id="kernel" />
+        </service>
 
         <service id="kernel" synthetic="true" />
         <service id="service_container" synthetic="true" />

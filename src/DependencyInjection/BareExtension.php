@@ -16,7 +16,8 @@ class BareExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('framework.xml');
+        $loader->load('framework/services.xml');
+        $loader->load('framework/routing.xml');
     }
 }
 
