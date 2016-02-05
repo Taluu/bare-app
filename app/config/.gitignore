@@ -1,2 +1,2 @@
-parameters.yml
-!parameters.yml.dist
+config.yml
+!config.yml.dist
