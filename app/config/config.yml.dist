@@ -1,4 +1,7 @@
 monolog:
+    channels:
+        - amqp
+
     handlers:
         console:
             type: console
@@ -9,4 +12,19 @@ monolog:
             formatter: ~
             path:      %kernel.logs_dir%/%kernel.environment%.log
             max_files: 40
+
+bare:
+    amqp:
+        connection:
+            host: %rabbitmq.host%
+            port: %rabbitmq.port%
+            login: %rabbitmq.login%
+            password: %rabbitmq.password%
+            virtual_host: %rabbitmq.vhost%
+
+        gates:
+            converter:
+                exchange: media
+                queue: rpc_external_converter
+                routing_key: converter
 

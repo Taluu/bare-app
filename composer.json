@@ -13,6 +13,7 @@
 
     "require": {
         "php": "^7.0",
+        "ext-amqp": "^1.7.0",
 
         "symfony/yaml": "^3.1",
         "symfony/config": "^3.1",
@@ -28,6 +29,7 @@
         "symfony/http-kernel": "^3.1",
         "symfony/http-foundation": "^3.1",
 
+        "swarrot/swarrot": "^2.0",
         "sensio/distribution-bundle": "^5.0",
 
         "symfony/monolog-bundle": "^2.8",
