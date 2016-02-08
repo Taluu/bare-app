@@ -40,7 +40,7 @@
         </service>
 
         <service id="debug.debug_handlers_listener" class="Symfony\Component\HttpKernel\EventListener\DebugHandlersListener">
-            <argument /><!-- Exception handler -->
+            <argument>null</argument><!-- Exception handler -->
             <argument type="service" id="logger" on-invalid="null" />
 
             <tag name="kernel.event_subscriber" />
