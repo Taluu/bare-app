@@ -19,15 +19,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $root = $treeBuilder->root('converter');
 
-        $amqp = $root
-            ->children()
-                ->arrayNode('amqp')
-                    ->isRequired()
-                    ->addDefaultsIfNotSet()
-                    ->info('Amqp configuration');
-
-        $this->addAmqpNode($amqp);
-        $root = $amqp->end();
+        $this->addAmqpNode($root);
 
         return $treeBuilder;
     }
@@ -36,39 +28,47 @@ class Configuration implements ConfigurationInterface
     {
         $root
             ->children()
-                ->arrayNode('connection')
+                ->arrayNode('amqp')
                     ->isRequired()
                     ->addDefaultsIfNotSet()
-                    ->info('Connection to AMQP to use')
+                    ->info('Amqp configuration')
+
                     ->children()
-                        ->scalarNode('host')->isRequired()->end()
-                        ->integerNode('port')->isRequired()->end()
-                        ->scalarNode('login')->isRequired()->end()
-                        ->scalarNode('password')->isRequired()->end()
-                        ->scalarNode('virtual_host')->defaultValue('/')->end()
-                    ->end()
-                ->end()
-
-                ->arrayNode('gates')
-                    ->canBeUnset()
-                    ->useAttributeAsKey('name')
-                    ->info('Access gate for each dialog with AMQP')
-                    ->prototype('array')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->scalarNode('exchange')
-                                ->isRequired()
-                                ->info('Exchange point associated to this gate')
+                        ->arrayNode('connection')
+                            ->isRequired()
+                            ->addDefaultsIfNotSet()
+                            ->info('Connection to AMQP to use')
+                            ->children()
+                                ->scalarNode('host')->isRequired()->end()
+                                ->integerNode('port')->isRequired()->end()
+                                ->scalarNode('login')->isRequired()->end()
+                                ->scalarNode('password')->isRequired()->end()
+                                ->scalarNode('virtual_host')->defaultValue('/')->end()
                             ->end()
+                        ->end()
 
-                            ->scalarNode('queue')
-                                ->isRequired()
-                                ->info('Queue to fetch the information from')
-                            ->end()
+                        ->arrayNode('gates')
+                            ->canBeUnset()
+                            ->useAttributeAsKey('name')
+                            ->info('Access gate for each dialog with AMQP')
+                            ->prototype('array')
+                                ->addDefaultsIfNotSet()
+                                ->children()
+                                    ->scalarNode('exchange')
+                                        ->isRequired()
+                                        ->info('Exchange point associated to this gate')
+                                    ->end()
 
-                            ->scalarNode('routing_key')
-                                ->defaultNull()
-                                ->info('Routing key to use when sending messages through this gate')
+                                    ->scalarNode('queue')
+                                        ->isRequired()
+                                        ->info('Queue to fetch the information from')
+                                    ->end()
+
+                                    ->scalarNode('routing_key')
+                                        ->defaultNull()
+                                        ->info('Routing key to use when sending messages through this gate')
+                                    ->end()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
