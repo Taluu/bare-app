@@ -23,5 +23,10 @@ if ($debug && class_exists(Debug::class)) {
 }
 
 $kernel = new AppKernel($env, $debug);
+
+if ('prod' === $env) {
+    $kernel->loadClassCache();
+}
+
 $application = new Application($kernel);
 $application->run($input);
