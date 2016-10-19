@@ -1,7 +1,9 @@
 Bare Application
 ================
-This represents the base for any "micro-service" external. Just fork it, add
-the stuff you want, and off you go !
+This represents the base for any "micro-service" applications. Just fork it,
+add the stuff you want, and off you go !
+
+![](https://a.dilcdn.com/bl/wp-content/uploads/sites/25/2014/02/Jungle-Book-Bare-Necessities.jpg)
 
 This was written in php7, so yeah, you may need php7 to continue further. 
 
