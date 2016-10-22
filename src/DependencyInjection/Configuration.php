@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $root = $treeBuilder->root('converter');
+        $root = $treeBuilder->root('bare');
 
         return $treeBuilder;
     }
