@@ -1,0 +1,7 @@
+home:
+    path: /
+    methods: [GET]
+
+    defaults:
+        _controller: Bare\Controller\DefaultController::defaultAction
+        _public: true
