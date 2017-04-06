@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
 use Bare\DependencyInjection\BareExtension;
+use Bare\DependencyInjection\Compiler\CommandPass;
 
 class BareApp extends Bundle
 {
@@ -16,6 +17,7 @@ class BareApp extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new RegisterListenersPass, PassConfig::TYPE_BEFORE_REMOVING);
+        $container->addCompilerPass(new CommandPass);
     }
 
     /** {@inheritDoc} */
